@@ -1,4 +1,5 @@
 ﻿using BLOG.Areas.Identity.Data;
+using BLOG.Entities.Concrete;
 using BLOG.Models;
 using BLOG.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -12,35 +13,43 @@ namespace BLOG.Controllers
     {
         private readonly IArticleRepository articleRepository;
         private readonly UserManager<AppUser> userManager;
-        AppDbContext context;
-        public UserController(IArticleRepository articleRepository,UserManager<AppUser> userManager)
+        private readonly IAppUserRepository appUserRepository;
+        public UserController(IArticleRepository articleRepository, UserManager<AppUser> userManager, IAppUserRepository appUserRepository)
         {
             this.articleRepository = articleRepository;
             this.userManager = userManager;
+            this.appUserRepository = appUserRepository;
         }
         [Authorize]
         public IActionResult Index()
         {
-            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ArticleUserVM articleUserVM = new ArticleUserVM();
-            articleUserVM.UserId = userID;
-            return RedirectToAction("AddArticle", articleUserVM);
+            return View();
         }
 
         public IActionResult AddArticle()
         {
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            AppUser user = appUserRepository.GetById(userID);
             ArticleUserVM articleUserVM = new ArticleUserVM();
             articleUserVM.UserId = userID;
             return View(articleUserVM);
         }
-        //[HttpPost]
-        //public IActionResult AddArticle(ArticleUserVM articleUserVM)
-        //{
-        //    AppUser appUser = new AppUser();
-        //    appUser.Articles = (ICollection<Entities.Concrete.Article>?)articleUserVM.Articles;
 
-        //    return RedirectToAction("AddArticle");
-        //}
+        /// <summary>
+        /// Add Article by user
+        /// </summary>
+        /// <param name="articleUserVM"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult AddArticle(ArticleUserVM articleUserVM)
+        {
+            Article article = new Article();
+            article.Title = articleUserVM.Title;
+            article.Content = articleUserVM.Content;
+            article.AppUserId = articleUserVM.UserId;
+            articleRepository.Add(article);
+
+            return RedirectToAction("Index","Home");
+        }
     }
 }
