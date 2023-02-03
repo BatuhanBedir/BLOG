@@ -17,17 +17,18 @@ namespace BLOG.Repository.Concrete
 
         public IEnumerable<Article> GetAllIncludeCategory()
         {
-            throw new NotImplementedException();
+            return db.Articles.Include(a => a.Categories);
         }
 
         public IEnumerable<Article> GetFavoriteCategoryOfArticle(int categoryId)
         {
-            throw new NotImplementedException();
+            var categories = db.Categories.Include(a => a.Id == categoryId);
+            return db.Articles.Include(a => a.Categories == categories);
         }
 
         public IEnumerable<Article> GetMostViewedArticleByViewCount()
         {
-            throw new NotImplementedException();
+            return db.Articles.OrderByDescending(a => a.ViewCount);
         }
     }
 }
