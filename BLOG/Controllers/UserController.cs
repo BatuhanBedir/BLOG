@@ -46,6 +46,7 @@ namespace BLOG.Controllers
             Article article = new Article();
             article.Title = articleUserVM.Title;
             article.Content = articleUserVM.Content;
+            article.AvgReadingTime = article.Content.Length / 200;
             article.AppUserId = articleUserVM.UserId;
             articleRepository.Add(article);
 
