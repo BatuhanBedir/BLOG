@@ -1,9 +1,10 @@
 ﻿using BLOG.Areas.Identity.Data;
+using BLOG.Entities.Concrete;
 
 namespace BLOG.Repository.Abstract
 {
-    public interface IAppUserRepository
+    public interface IAppUserRepository:IRepository<AppUser>
     {
-
+        public AppUser GetById(string id);
     }
 }

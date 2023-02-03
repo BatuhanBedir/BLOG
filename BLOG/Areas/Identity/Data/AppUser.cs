@@ -17,7 +17,7 @@ public class AppUser : IdentityUser
 	}
 	public string FirstName { get; set; }
 	public string LastName { get; set; }
-	public string Description { get; set; }
+	public string? Description { get; set; }
 	public string? Image { get; set; }
 	public DateTime RegistrationDate { get; set; } = DateTime.Now;
     public ICollection<Article>? Articles { get; set; }  

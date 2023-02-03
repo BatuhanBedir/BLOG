@@ -1,0 +1,22 @@
+﻿@model ArticleUserVM
+@{
+    ViewData["Title"] = "Add Article";
+}
+
+<h3>Add Article</h3>
+<hr />
+<h2>@Model.UserId</h2>
+
+<div class="col-md-4" asp-validation-summary="All">
+    <form asp-action="AddArticle" asp-controller="User" >
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Content" class="control-label"></label>
+            <textarea class="p-2 form-control" rows="10" style="height:100%"></textarea>
+        </div><br />
+        <a class="btn btn-outline-danger">Save</a>
+    </form>
+</div>

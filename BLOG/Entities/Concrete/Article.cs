@@ -3,12 +3,13 @@ using BLOG.Entities.Abstract;
 
 namespace BLOG.Entities.Concrete
 {
-    public class Article : BaseEntity
+    public class Article 
     {
         public Article()
         {
             Categories = new HashSet<Category>();
         }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public int ViewCount { get; set; }

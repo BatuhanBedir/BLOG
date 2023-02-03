@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace BLOG.Repository.Concrete
 {
-    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IRepository<T> where T : class
     {
         private readonly AppDbContext db;
 
@@ -41,10 +41,10 @@ namespace BLOG.Repository.Concrete
         {
             return db.Set<T>();
         }
-        public T GetById(int id)
-        {
-            return db.Set<T>().FirstOrDefault(a => a.Id == id);
-        }
+        //public T GetById(int id)
+        //{
+        //    return db.Set<T>().FirstOrDefault(a => a.Id == id);
+        //}
         public IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
         {
             return db.Set<T>().Where(predicate);

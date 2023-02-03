@@ -12,5 +12,10 @@ namespace BLOG.Repository.Concrete
         {
             this.db = db;
         }
+
+        public Category GetById(int id)
+        {
+            return db.Set<Category>().FirstOrDefault(a => a.Id == id);
+        }
     }
 }

@@ -20,6 +20,11 @@ namespace BLOG.Repository.Concrete
             return db.Articles.Include(a => a.Categories);
         }
 
+        public Article GetById(int id)
+        {
+            return db.Set<Article>().FirstOrDefault(a => a.Id == id);
+        }
+
         public IEnumerable<Article> GetFavoriteCategoryOfArticle(int categoryId)
         {
             var categories = db.Categories.Include(a => a.Id == categoryId);
