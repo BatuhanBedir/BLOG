@@ -4,20 +4,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-action="ReadArticle" asp-controller="Article">
+<form asp-action="ReadArticle" asp-controller="Article" >
     <div class="container my-5">
         <h2 class="text-center">Article List</h2>
         <div class="row">
             @foreach (var article in Model.Articles)
             {
-               <input asp-for="ArticleId" hidden />
+                <input asp-for="ArticleId" hidden />
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h3 class="card-title">@article.Title</h3>
                             <p class="card-text" style="font-size:18px; max-height: 30px; overflow: hidden;">@article.Content</p>
                             <p class="text-muted">Read Count: @article.ViewCount</p>
-                            <input type="submit" class="btn btn-outline-danger" value="Read Article" asp-action="ReadArticle" asp-controller="Article" asp-route-id="@article.Id"/>
+                            <input type="submit" class="btn btn-outline-danger" value="Read Article" asp-action="ReadArticle" asp-controller="Article" asp-route-id="@article.Id" />
+                            
                         </div>
                     </div>
                 </div>

@@ -9,11 +9,13 @@ namespace BLOG.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IArticleRepository articleRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public HomeController(ILogger<HomeController> logger,IArticleRepository articleRepository)
+        public HomeController(ILogger<HomeController> logger,IArticleRepository articleRepository,ICategoryRepository categoryRepository)
         {
             _logger = logger;
             this.articleRepository = articleRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
@@ -21,6 +23,7 @@ namespace BLOG.Controllers
             var articles = articleRepository.GetMostViewedArticleByViewCount();
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Articles = articles;
+
             return View(articleIndexVM);
         }
 

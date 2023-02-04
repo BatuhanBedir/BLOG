@@ -1,6 +1,7 @@
 ﻿using BLOG.Areas.Identity.Data;
 using BLOG.Entities.Concrete;
 using BLOG.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLOG.Repository.Concrete
 {
@@ -16,6 +17,12 @@ namespace BLOG.Repository.Concrete
         {
             return db.Set<AppUser>().FirstOrDefault(a => a.Id == id);
         }
+
+        public AppUser GetByIdIncludeCategory(string Id)
+        {
+           return db.Set<AppUser>().Include(a => a.Category).FirstOrDefault(a => a.Id == Id);
+        }
+
 
     }
 }

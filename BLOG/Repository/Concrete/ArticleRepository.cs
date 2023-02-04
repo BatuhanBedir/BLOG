@@ -15,9 +15,9 @@ namespace BLOG.Repository.Concrete
            this.db = db;
         }
 
-        public IEnumerable<Article> GetAllIncludeCategory()
+        public List<Article> GetAllIncludeCategory()
         {
-            return db.Articles.Include(a => a.Categories);
+            return db.Articles.Include(a => a.Categories).ToList();
         }
 
         public Article GetById(int id)
@@ -25,15 +25,28 @@ namespace BLOG.Repository.Concrete
             return db.Set<Article>().FirstOrDefault(a => a.Id == id);
         }
 
-        public IEnumerable<Article> GetFavoriteCategoryOfArticle(int categoryId)
+        public List<Article> GetFavoriteCategoryOfArticle(string appUserId)
         {
-            var categories = db.Categories.Include(a => a.Id == categoryId);
-            return db.Articles.Include(a => a.Categories == categories);
+            var user = db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
+           var categories = user.Category;
+            List<Article> articleList = new List<Article>();
+
+            foreach (var item in categories)
+            {
+                var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id)).ToList();
+                articleList.AddRange(articles);
+            }
+            return articleList;
         }
 
-        public IEnumerable<Article> GetMostViewedArticleByViewCount()
+        public List<Article> GetMostViewedArticleByViewCount()
         {
-            return db.Articles.OrderByDescending(a => a.ViewCount);
+            return db.Articles.OrderByDescending(a => a.ViewCount).ToList();
+        }
+
+        public List<Article> GetArticlesBySelectedUserId(string id)
+        {
+            return db.Articles.Where(q => q.AppUserId == id).ToList();
         }
     }
 }

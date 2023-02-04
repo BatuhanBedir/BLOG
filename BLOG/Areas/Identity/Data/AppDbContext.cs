@@ -15,6 +15,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
     public DbSet<Article> Articles { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<AppUser> AspNetUser { get; set; }
     
     protected override void OnModelCreating(ModelBuilder builder)
     {

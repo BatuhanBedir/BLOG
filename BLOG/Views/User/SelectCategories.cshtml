@@ -1,0 +1,38 @@
+﻿@using BLOG.Areas.Identity.Data
+@model UserCategoryVM
+@{
+    ViewData["Title"] = "Select Categories";
+    var userCategory = ViewBag.CategoryUser as AppUser;
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <form asp-action="SelectCategories" asp-route-id=@Model.userId asp-controller="User" method="post">
+            <table class="table table-bordered table-striper table-hover">
+                <thead>
+                    <tr>
+                        <th>Lessons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Categories)
+                    {
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="ids" type="checkbox" @(userCategory.Category.Where(a=>a.Id==item.Id).Any()?"checked":"") value="@item.Id" id="@item.Id" />
+                                    @Html.DisplayFor(modelItem=>item.Name)
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="submit" name="submit" value="Ekle" class="btn btn-primary" />
+        </form>
+    </tbody>
+</table>

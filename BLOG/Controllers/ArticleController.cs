@@ -21,20 +21,21 @@ namespace BLOG.Controllers
         }
         public IActionResult ReadArticle(int Id)
         {
-            var articles = articleRepository.GetById(Id);
-            articles.ViewCount++;
-            articleRepository.Update(articles);
-            var users = appUserRepository.GetById(articles.AppUserId);
+            var article = articleRepository.GetById(Id);
+            article.ViewCount++;
+            articleRepository.Update(article);
+            var users = appUserRepository.GetById(article.AppUserId);
 
             string writer = users.FirstName+ " " + users.LastName;
 
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
-            articleIndexVM.Title = articles.Title;
-            articleIndexVM.Content = articles.Content;
-            articleIndexVM.ViewCount = articles.ViewCount;
+            articleIndexVM.Title = article.Title;
+            articleIndexVM.Content = article.Content;
+            articleIndexVM.ViewCount = article.ViewCount;
             articleIndexVM.Writer = writer;
-            articleIndexVM.CreatedTime = articles.CreatedDate;
-            articleIndexVM.AvgReadingTime = articles.AvgReadingTime;
+            articleIndexVM.CreatedTime = article.CreatedDate;
+            articleIndexVM.AvgReadingTime = article.AvgReadingTime;
+            articleIndexVM.UserId = article.AppUserId;
 
             return View(articleIndexVM);
         }

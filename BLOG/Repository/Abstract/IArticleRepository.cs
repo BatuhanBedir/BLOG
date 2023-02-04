@@ -5,8 +5,9 @@ namespace BLOG.Repository.Abstract
     public interface IArticleRepository : IRepository<Article>
     {
         public Article GetById(int id);
-        IEnumerable<Article> GetAllIncludeCategory();
-        IEnumerable<Article> GetMostViewedArticleByViewCount();
-        IEnumerable<Article> GetFavoriteCategoryOfArticle(int categoryId);
+        List<Article> GetAllIncludeCategory();
+        List<Article> GetMostViewedArticleByViewCount();
+        List<Article> GetFavoriteCategoryOfArticle(string appUserId);
+        List<Article> GetArticlesBySelectedUserId(string id);
     }
 }

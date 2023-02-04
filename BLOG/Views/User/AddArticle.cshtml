@@ -17,6 +17,17 @@
             <label asp-for="Content" class="control-label"></label>
             <input asp-for="Content" class="p-2 form-control" rows="10" style="height:100%">
         </div><br />
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" name="ids" type="checkbox" value="@item.Id" id="@item.Id" />
+                        @Html.DisplayFor(modelItem=>item.Name)
+                    </div>
+                </td>
+            </tr>
+        }
         <input value="Save" type="submit" class="btn btn-outline-danger">
     </form>
 </div>
