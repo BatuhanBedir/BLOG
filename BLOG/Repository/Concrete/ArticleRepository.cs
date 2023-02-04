@@ -15,7 +15,7 @@ namespace BLOG.Repository.Concrete
            this.db = db;
         }
 
-        public List<Article> GetAllIncludeCategory()
+        public IEnumerable<Article> GetAllIncludeCategory()
         {
             return db.Articles.Include(a => a.Categories).ToList();
         }
@@ -25,7 +25,7 @@ namespace BLOG.Repository.Concrete
             return db.Set<Article>().FirstOrDefault(a => a.Id == id);
         }
 
-        public List<Article> GetFavoriteCategoryOfArticle(string appUserId)
+        public IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId)
         {
             var user = db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
            var categories = user.Category;
@@ -39,12 +39,12 @@ namespace BLOG.Repository.Concrete
             return articleList;
         }
 
-        public List<Article> GetMostViewedArticleByViewCount()
+        public IEnumerable<Article> GetMostViewedArticleByViewCount()
         {
             return db.Articles.OrderByDescending(a => a.ViewCount).ToList();
         }
 
-        public List<Article> GetArticlesBySelectedUserId(string id)
+        public IEnumerable<Article> GetArticlesBySelectedUserId(string id)
         {
             return db.Articles.Where(q => q.AppUserId == id).ToList();
         }
