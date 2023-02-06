@@ -31,8 +31,6 @@ namespace BLOG.Repository.Concrete
             var categories = user.Category;
             List<Article> articleList = new List<Article>();
 
-
-
             foreach (var item in categories)
             {
                 var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id));
