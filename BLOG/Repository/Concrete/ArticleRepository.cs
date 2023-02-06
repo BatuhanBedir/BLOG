@@ -12,7 +12,7 @@ namespace BLOG.Repository.Concrete
 
         public ArticleRepository(AppDbContext db) : base(db)
         {
-           this.db = db;
+            this.db = db;
         }
 
         public IEnumerable<Article> GetAllIncludeCategory()
@@ -28,13 +28,22 @@ namespace BLOG.Repository.Concrete
         public IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId)
         {
             var user = db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
-           var categories = user.Category;
+            var categories = user.Category;
             List<Article> articleList = new List<Article>();
+
+
 
             foreach (var item in categories)
             {
-                var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id)).ToList();
-                articleList.AddRange(articles);
+                var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id));
+
+                foreach (var article in articles)
+                {
+                    if (!articleList.Any(a => a.Id == article.Id))
+                    {
+                        articleList.Add(article);
+                    }
+                }
             }
             return articleList;
         }
