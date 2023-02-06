@@ -30,13 +30,15 @@ namespace BLOG.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +46,7 @@ namespace BLOG.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -72,8 +75,8 @@ namespace BLOG.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(50,ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name ="FirstName")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "FirstName")]
             public string FirstName { get; set; }
 
 
@@ -112,6 +115,8 @@ namespace BLOG.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public IFormFile ImageFile { get; set; }
         }
 
 
@@ -132,6 +137,22 @@ namespace BLOG.Areas.Identity.Pages.Account
                 //VM 'den gelen verileri usera atıp dbye kaydediyoruz
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+
+                if (Input.ImageFile != null)
+                {
+                    string uniqueFileName = null;
+
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + Input.ImageFile.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        Input.ImageFile.CopyTo(fileStream);
+                    }
+                   // string file = Path.GetFileName(Request.Form.Files[0].FileName);
+                    user.Image ="/images/" + uniqueFileName;
+                }
+
 
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
