@@ -137,6 +137,7 @@ namespace BLOG.Areas.Identity.Pages.Account
                 //VM 'den gelen verileri usera atıp dbye kaydediyoruz
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.Description = Input.Description;
 
                 if (Input.ImageFile != null)
                 {
