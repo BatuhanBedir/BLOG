@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BLOG.Migrations
 {
-    public partial class init : Migration
+    public partial class seedData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,7 @@ namespace BLOG.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -249,8 +249,8 @@ namespace BLOG.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "39cf7308-1d2a-4e24-b526-a708b5fbb666", "321178a4-cf5d-43af-8055-3f1c09264855", "Admin", "ADMIN" },
-                    { "cbb5a0c2-80c8-47c6-b7cf-e86b3a8c3acd", "a4e34f38-8c31-46dc-b961-33fe6f8a4933", "Standart", "STANDART" }
+                    { "781bd18d-dd88-418c-b51c-fa571e75558f", "8513cee6-9500-4531-851a-0a206f25cffb", "Standard", "STANDARD" },
+                    { "ed53847e-6be7-4524-bd20-608a072aa093", "391c9cea-3170-4228-b9c9-0b7400222b55", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,24 +258,24 @@ namespace BLOG.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "Image", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegistrationDate", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "d7eb2ee7-9a17-4d53-9c11-1f5d53b0833b", 0, "1224bced-9a30-4ef1-b922-20e847a8d246", "Admin", "admin@admin.com", true, "Admin", null, "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEE8lOkVoU0KnPqNm3CFcPqj+iTqPEtfrNADvsUsTiyP76iP08C+f8Z1PNjINCOarJQ==", null, false, new DateTime(2023, 2, 2, 16, 30, 15, 899, DateTimeKind.Local).AddTicks(9990), "42270538-f0dd-48c8-bc14-32f69bf944fa", false, "admin@admin.com" },
-                    { "ef193cb7-db2b-4045-95b2-f1d36cc5bd6d", 0, "06ddc88a-505d-48ca-bef6-295af3e71b6d", "Standart", "standart@standart.com", true, "Standart", null, "Standart", false, null, "STANDART@STANDART.COM", "STANDART@STANDART.COM", "AQAAAAEAACcQAAAAEAy/Oxs57Y4Shjfk168m142+7Opnthjh5iQYBFPB71srLAH9zWNEl4ou4jDIXrrySg==", null, false, new DateTime(2023, 2, 2, 16, 30, 15, 901, DateTimeKind.Local).AddTicks(1233), "22262f4c-fc22-4c63-915b-10ad58acffc9", false, "standart@standart.com" }
+                    { "5fda497e-f247-443e-a2a7-febcc061de4c", 0, "a08dbab3-138e-47e4-8ffc-4897610958f8", null, "admin@admin.com", true, "Admin", null, "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAHV1qmclkYuSNABnNQ389fD2vM3+TpNVETj9ExEynNytRGaTRUXclmsp9s7+msWLQ==", null, false, new DateTime(2023, 2, 8, 16, 13, 33, 381, DateTimeKind.Local).AddTicks(6748), "b3b47431-babc-49c5-bb5e-b2cb7f265cba", false, "admin@admin.com" },
+                    { "855ccad9-3a58-4daf-b7ec-b5286bbf70ea", 0, "0a2e743c-c40c-41e9-be84-85a86b9df4ce", null, "standard@standard.com", true, "Standard", null, "Standard", false, null, "STANDARD@STANDARD.COM", "STANDARD@STANDARD.COM", "AQAAAAEAACcQAAAAECxcFPA2u3kNJeLYEknTVwVywVBRi0VNN7AYxA6afAedqfCzg4Pnj3n/bFgpVCspmw==", null, false, new DateTime(2023, 2, 8, 16, 13, 33, 382, DateTimeKind.Local).AddTicks(6713), "02126b5e-da5e-46a1-86d9-8e366148d570", false, "standard@standard.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "IsAdmin", "true", "d7eb2ee7-9a17-4d53-9c11-1f5d53b0833b" });
+                values: new object[] { 1, "IsAdmin", "true", "5fda497e-f247-443e-a2a7-febcc061de4c" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "39cf7308-1d2a-4e24-b526-a708b5fbb666", "d7eb2ee7-9a17-4d53-9c11-1f5d53b0833b" });
+                values: new object[] { "ed53847e-6be7-4524-bd20-608a072aa093", "5fda497e-f247-443e-a2a7-febcc061de4c" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "cbb5a0c2-80c8-47c6-b7cf-e86b3a8c3acd", "ef193cb7-db2b-4045-95b2-f1d36cc5bd6d" });
+                values: new object[] { "781bd18d-dd88-418c-b51c-fa571e75558f", "855ccad9-3a58-4daf-b7ec-b5286bbf70ea" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUserCategory_CategoryId",

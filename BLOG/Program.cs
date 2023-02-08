@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()       //unutma
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
@@ -36,6 +37,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("IsAdmin", policy => policy.RequireClaim("IsAdmin", "true"));
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,7 +52,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

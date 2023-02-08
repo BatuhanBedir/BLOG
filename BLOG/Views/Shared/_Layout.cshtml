@@ -33,6 +33,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ArticleByCategories" asp-action="Index">Favorite Categories</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="UserRemove">User Remove</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ArticleRemove">Article Remove</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="AddCategory">Add Category</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />
@@ -76,16 +88,16 @@
         </main>
     </div>
 
-   <footer style="background-color: #f2f2f2; padding: 10px; text-align: center;">
-  <p style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">Created by Batuhan Bedir &copy; 2023</p>
-</footer>
+    <footer style="background-color: #f2f2f2; padding: 10px; text-align: center;">
+        <p style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">Created by Batuhan Bedir &copy; 2023</p>
+    </footer>
 
- @*   <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - BLOG - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    @*   <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - BLOG - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
     </footer>*@
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

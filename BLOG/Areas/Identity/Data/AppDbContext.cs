@@ -9,7 +9,7 @@ namespace BLOG.Areas.Identity.Data;
 public class AppDbContext : IdentityDbContext<AppUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+        :base(options)
     {
     }
 
@@ -27,16 +27,17 @@ public class AppDbContext : IdentityDbContext<AppUser>
         builder.ApplyConfiguration(new AppUserEntityConfiguration());
 
         string adminRoleId = Guid.NewGuid().ToString();
-        string standartRoleId = Guid.NewGuid().ToString();
+        string standardRoleId = Guid.NewGuid().ToString();
 
         IdentityRole adminRole = new IdentityRole { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN" };
-        IdentityRole standartRole = new IdentityRole { Id = standartRoleId, Name = "Standart", NormalizedName = "STANDART" };
+        IdentityRole standardRole = new IdentityRole { Id = standardRoleId, Name = "Standard", NormalizedName = "STANDARD" };
 
         builder.Entity<IdentityRole>().HasData(adminRole);
-        builder.Entity<IdentityRole>().HasData(standartRole);
+        builder.Entity<IdentityRole>().HasData(standardRole);
+
 
         string adminAppUserId = Guid.NewGuid().ToString();
-        string standartAppUserId = Guid.NewGuid().ToString();
+        string standardAppUserId = Guid.NewGuid().ToString();
         var hasher = new PasswordHasher<IdentityUser>();
 
         AppUser adminUser = new AppUser
@@ -45,43 +46,44 @@ public class AppDbContext : IdentityDbContext<AppUser>
             FirstName = "Admin",
             LastName = "Admin",
             Email = "admin@admin.com",
-            NormalizedEmail = "ADMIN@ADMIN.COM",
+            NormalizedEmail = "ADMIN@ADMIN.COM",     //seed data atarken girmemiz lazım
             UserName = "admin@admin.com",
             NormalizedUserName = "ADMIN@ADMIN.COM",
-            Description = "Admin",
             EmailConfirmed = true,
         };
         adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin123!");
 
-        AppUser standartUser = new AppUser
+        AppUser standardUser = new AppUser
         {
-            Id=standartAppUserId,
-            FirstName="Standart",
-            LastName="Standart",
-            Email="standart@standart.com",
-            NormalizedEmail="STANDART@STANDART.COM",
-            UserName="standart@standart.com",
-            NormalizedUserName="STANDART@STANDART.COM",
-            Description="Standart",
-            EmailConfirmed=true,
+            Id = standardAppUserId,
+            FirstName = "Standard",
+            LastName = "Standard",
+            Email = "standard@standard.com",
+            NormalizedEmail = "STANDARD@STANDARD.COM",
+            UserName = "standard@standard.com",
+            NormalizedUserName = "STANDARD@STANDARD.COM",
+            EmailConfirmed = true,
         };
-        standartUser.PasswordHash = hasher.HashPassword(standartUser, "Standart123!");
+        standardUser.PasswordHash = hasher.HashPassword(standardUser, "Standard123!");
 
         builder.Entity<AppUser>().HasData(adminUser);
-        builder.Entity<AppUser>().HasData(standartUser);
+        builder.Entity<AppUser>().HasData(standardUser);
+
+
+        //rolleri user la eşleştirme/aratabloya atma
 
         IdentityUserRole<string> adminUserRole = new IdentityUserRole<string> { RoleId = adminRoleId, UserId = adminAppUserId };
-        IdentityUserRole<string> standartUserRole = new IdentityUserRole<string> { RoleId = standartRoleId, UserId = standartAppUserId };
+        IdentityUserRole<string> standardUserRole = new IdentityUserRole<string> { RoleId = standardRoleId, UserId = standardAppUserId };
 
         builder.Entity<IdentityUserRole<string>>().HasData(adminUserRole);
-        builder.Entity<IdentityUserRole<string>>().HasData(standartUserRole);
+        builder.Entity<IdentityUserRole<string>>().HasData(standardUserRole);
 
         builder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
         {
             UserId = adminAppUserId,
-            Id=1,
-            ClaimType="IsAdmin",
-            ClaimValue="true",
+            Id = 1,
+            ClaimType = "IsAdmin",
+            ClaimValue = "true",
         });
     }
 }
