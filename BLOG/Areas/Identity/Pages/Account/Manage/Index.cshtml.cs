@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using BLOG.Areas.Identity.Data;
+using BLOG.Repository.Abstract;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,13 +18,15 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IAppUserRepository appUserRepository;
 
         public IndexModel(
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager,IAppUserRepository appUserRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.appUserRepository = appUserRepository;
         }
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+
             [Display(Name = "Username")]
             public string Username { get; set; }
 
@@ -70,12 +74,14 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
 
+            Username = userName;
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber
             };
+
+            
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -103,7 +109,8 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-       
+            user.UserName = Input.Username;
+            appUserRepository.Update(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {

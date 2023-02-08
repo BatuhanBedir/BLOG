@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace BLOG.Areas.Identity.Pages.Account
 {
@@ -94,7 +95,6 @@ namespace BLOG.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-
             public string Description { get; set; }
 
             /// <summary>
@@ -139,6 +139,8 @@ namespace BLOG.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 user.Description = Input.Description;
 
+                
+
                 if (Input.ImageFile != null)
                 {
                     string uniqueFileName = null;
@@ -153,8 +155,6 @@ namespace BLOG.Areas.Identity.Pages.Account
                    // string file = Path.GetFileName(Request.Form.Files[0].FileName);
                     user.Image ="/images/" + uniqueFileName;
                 }
-
-
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -176,6 +176,19 @@ namespace BLOG.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    //string standardRoleId = Guid.NewGuid().ToString();
+
+                    //IdentityRole standardRole = new IdentityRole { Id = standardRoleId, Name = user.UserName, NormalizedName = user.UserName.ToUpper() };
+
+                    //IdentityUserRole<string> standardUserRole = new IdentityUserRole<string> { RoleId = standardRoleId, UserId = user.Id };
+
+                    //new IdentityUserClaim<string>
+                    //{
+                    //    UserId = user.Id,
+                    //    Id = 1,
+                    //    ClaimType = "IsStandard",
+                    //    ClaimValue = "true",
+                    //};
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
@@ -190,10 +203,12 @@ namespace BLOG.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+               
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
+
         }
 
         private AppUser CreateUser()

@@ -1,4 +1,5 @@
 ﻿using BLOG.Entities.Concrete;
+using System.ComponentModel.DataAnnotations;
 
 namespace BLOG.Models
 {
@@ -8,8 +9,14 @@ namespace BLOG.Models
         public int ArticleId { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }
+
+        [Required(ErrorMessage = "Please enter title")]
+        [MinLength(5, ErrorMessage = "Content can not be longer than 5 chars")]
         public string Title { get; set; }
         public int ViewCount { get; set; }
+
+        [Required(ErrorMessage = "Please enter title")]
+        [MinLength(10, ErrorMessage = "Content can not be longer than 10 chars")]
         public string Content { get;set; }
         public string Writer { get; set; }
         public string UserId { get; set; }

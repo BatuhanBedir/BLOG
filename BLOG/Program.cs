@@ -35,6 +35,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("IsAdmin", policy => policy.RequireClaim("IsAdmin", "true"));
+    options.AddPolicy("IsAdmin", policy => policy.RequireClaim("IsStandard", "true"));
 });
 
 

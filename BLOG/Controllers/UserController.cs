@@ -104,5 +104,13 @@ namespace BLOG.Controllers
             var returner = appUserRepository.Update(appUser);
             return RedirectToAction("SelectCategories");
         }
+
+        public IActionResult EditUser()
+        {
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = appUserRepository.GetById(userID);
+
+            return View();
+        }
     }
 }
