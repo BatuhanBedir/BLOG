@@ -30,7 +30,15 @@ namespace BLOG.Controllers
         {
             return View();
         }
-
+        
+        public IActionResult ListArticle()
+        {
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user=appUserRepository.GetById(userID);
+            ArticleUserVM articleUserVM = new ArticleUserVM();
+            articleUserVM.Articles = user.Articles;
+            return View(articleUserVM);
+        }
         public IActionResult AddArticle()
         {
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);

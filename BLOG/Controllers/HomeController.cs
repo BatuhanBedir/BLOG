@@ -2,6 +2,7 @@
 using BLOG.Repository.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace BLOG.Controllers
 {
@@ -20,6 +21,11 @@ namespace BLOG.Controllers
 
         public IActionResult Index()
         {
+            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //if (userID!=null)
+            //{
+            //    return View("Index", "UsersArticleController");
+            //}
             var articles = articleRepository.GetMostViewedArticleByViewCount();
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Articles = articles;
