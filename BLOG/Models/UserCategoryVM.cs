@@ -6,7 +6,7 @@ namespace BLOG.Models
     public class UserCategoryVM
     {
         public IEnumerable<Category> Categories { get; set; }
-        public string userId { get; set; }
+        public string UserId { get; set; }
 
     }
 }

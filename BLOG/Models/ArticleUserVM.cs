@@ -8,11 +8,11 @@ namespace BLOG.Models
     public class ArticleUserVM
     {
         [Required(ErrorMessage = "Please enter title")]
-        [MinLength(5,ErrorMessage ="Title can not be longer than 5 chars")]
+        [MinLength(5,ErrorMessage = "Title can not be shorter than 5 chars")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Please enter title")]
-        [MinLength(10, ErrorMessage = "Content can not be longer than 10 chars")]
+        [MinLength(10, ErrorMessage = "Content can not be shorter than 10 chars")]
         public string Content { get; set; }
         public string UserId { get; set; }
 

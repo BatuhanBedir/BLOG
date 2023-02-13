@@ -2,9 +2,56 @@
 @{
     ViewData["Title"] = "List Article";
 }
-<h1>Manage your account</h1>
+@*<h1>Manage your account</h1>*@
 
-<div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Created Date</th>
+            <th>Transaction</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Articles)
+        {
+            var tm = "#deleteModal" + item.Id;
+            var mid = "deleteModal" + item.Id;
+            <tr>
+                <td>@Html.DisplayFor(modelItem=>item.Title)</td>
+                <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                <td>
+                    <a asp-controller="User" asp-action="EditArticle"  asp-route-id="@item.Id" class="btn btn-outline-info">Edit Article</a>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="@tm">Remove Article</button>
+                </td>
+            </tr>
+            <!-- Modal Start-->
+            <div class="modal fade" id="@mid" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel">This item will be deleted!!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+        }
+    </tbody>
+</table>
+
+
+
+@*<div>
     <h2>Change your account settings</h2>
     <hr />
     <table>
@@ -24,4 +71,4 @@
             }
         </tbody>
     </table>
-</div>
+</div>*@

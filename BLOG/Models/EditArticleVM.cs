@@ -1,16 +1,12 @@
-﻿using BLOG.Areas.Identity.Data;
-using BLOG.Entities.Abstract;
+﻿using BLOG.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
 
-namespace BLOG.Entities.Concrete
+namespace BLOG.Models
 {
-    public class Article 
+    public class EditArticleVM
     {
-        public Article()
-        {
-            Categories = new HashSet<Category>();
-        }
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Please enter title")]
         [MinLength(5, ErrorMessage = "Title can not be shorter than 5 chars")]
         public string Title { get; set; }
@@ -18,12 +14,8 @@ namespace BLOG.Entities.Concrete
         [Required(ErrorMessage = "Please enter title")]
         [MinLength(10, ErrorMessage = "Content can not be shorter than 10 chars")]
         public string Content { get; set; }
-        public int ViewCount { get; set; }
         public decimal AvgReadingTime { get; set; }
-        public DateTime CreatedDate { get; set; }= DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public ICollection<Category> Categories { get; set; }
-
-        public string AppUserId { get; set; }
-        public AppUser AppUser { get; set; }
     }
 }

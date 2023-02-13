@@ -7,6 +7,10 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <li>
+            @*<input type="submit"  asp-route-returnUrl="User/ListArticle" value="EditArticle"/>*@
+            <a class="nav-link text-dark" asp-controller="User" asp-action="ListArticle">List Article</a>
+        </li>
         <li class="nav-item">
             <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"  title="Manage">Hello @UserManager.GetUserName(User)!</a>
         </li>

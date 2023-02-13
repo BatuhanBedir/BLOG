@@ -92,7 +92,7 @@ namespace BLOG.Controllers
             UserCategoryVM userCategoryVM = new UserCategoryVM()
             {
                 Categories = categories,
-                userId = userID
+                UserId = userID
             };
             return View(userCategoryVM);
         }
@@ -118,6 +118,10 @@ namespace BLOG.Controllers
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = appUserRepository.GetById(userID);
 
+            return View();
+        }
+        public IActionResult EditArticle()
+        {
             return View();
         }
     }
