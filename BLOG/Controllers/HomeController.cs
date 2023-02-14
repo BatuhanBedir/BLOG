@@ -23,8 +23,8 @@ namespace BLOG.Controllers
         public IActionResult Index()
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
-
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             //if (userID != null)
             //{
             //    var articleList = articleRepository.GetFavoriteCategoryOfArticle(userID);
@@ -35,6 +35,7 @@ namespace BLOG.Controllers
             //{
             //    return View("Index", "UsersArticleController");
             //}
+
             var articles = articleRepository.GetMostViewedArticleByViewCount();
             articleIndexVM.Articles = articles;
 
