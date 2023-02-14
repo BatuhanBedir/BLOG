@@ -29,13 +29,14 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-3">
-            <a href="/UsersArticle/@Model.UserId">
-                <img src="@Model.Image" width="150" height="150" />
-            </a>
-            @*<a href="/UsersArticle/User">
+            @*<a href="/UsersArticle/@Model.UserId">
                 <img src="@Model.Image" width="150" height="150" />
             </a>*@
-            <p class="text-muted">Written by <a href="/UsersArticle/@Model.UserId">@Model.Writer</a></p>
+            <a href="@Url.Action("UserDetail","User",new{id=Model.UserId})">
+                <img src="@Model.Image" width="150" height="150" />
+            </a>
+            @*<p class="text-muted">Written by <a href="/UsersArticle/@Model.UserId">@Model.Writer</a></p>*@
+            <p class="text-muted">Written by <a href="@Url.Action("UserDetail","User",new{id=Model.UserId})">@Model.Writer</a></p>
             <p class="text-muted">Published on @Model.CreatedTime.ToString("D")</p>
             <p class="text-muted">Average Reading Time: @Model.AvgReadingTime minutes</p>
         </div>

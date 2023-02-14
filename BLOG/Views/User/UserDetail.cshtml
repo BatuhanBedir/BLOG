@@ -1,0 +1,34 @@
+﻿@model UserDetailVM
+@{
+    ViewData["Title"] = "User Detail";
+}
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Model.Image" width="150" height="150" class="img-fluid" alt="@Model.FirstName @Model.LastName">
+    </div>
+    <div class="col-md-8">
+        <h1>@Model.FirstName @Model.LastName</h1>
+        <p>@Model.Description</p>
+    </div>
+</div>
+
+<hr />
+
+<h2>Yazıları</h2>
+
+@foreach (var article in Model.Articles.OrderByDescending(a => a.CreatedDate))
+{
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">@article.Title</h3>
+                <p class="card-text" style="font-size:18px; max-height: 28px; overflow: hidden;">@article.Content</p>
+                <p class="text-muted">Read Count: @article.ViewCount</p>
+                <input type="submit" class="btn btn-outline-danger" value="Read Article" asp-action="ReadArticle" asp-controller="Article" asp-route-id="@article.Id" />
+            </div>
+        </div>
+    </div>
+
+}
+
+

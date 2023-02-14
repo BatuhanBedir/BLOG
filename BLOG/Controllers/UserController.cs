@@ -215,5 +215,18 @@ namespace BLOG.Controllers
             }
             return RedirectToAction("ListArticle");
         }
+        public IActionResult UserDetail(string id)
+        {
+            var user = appUserRepository.GetById(id);
+            var articles = articleRepository.GetArticlesBySelectedUserId(id);
+            UserDetailVM userDetailVM = new UserDetailVM();
+            userDetailVM.FirstName = user.FirstName;
+            userDetailVM.LastName = user.LastName;
+            userDetailVM.Image = user.Image;
+            userDetailVM.Description = user.Description;
+            userDetailVM.Articles = (HashSet<Article>)user.Articles;
+
+            return View(userDetailVM);
+        }
     }
 }
