@@ -27,7 +27,10 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     options.User.RequireUniqueEmail = true; 
 });
-
+//builder.Services.AddControllers(options =>
+//{
+//    options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider());
+//});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

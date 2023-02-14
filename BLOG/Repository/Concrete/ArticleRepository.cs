@@ -55,5 +55,15 @@ namespace BLOG.Repository.Concrete
         {
             return db.Articles.Where(q => q.AppUserId == id).ToList();
         }
+
+        public Article GetByIdIncludeCategory(int id)
+        {
+            return db.Articles.Include(a => a.Categories).FirstOrDefault(a => a.Id == id);
+        }
+
+        public dynamic GetArticlesBySelectedUserId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

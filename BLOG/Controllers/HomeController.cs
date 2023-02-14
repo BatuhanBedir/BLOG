@@ -1,5 +1,6 @@
 ﻿using BLOG.Models;
 using BLOG.Repository.Abstract;
+using BLOG.Repository.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -21,13 +22,20 @@ namespace BLOG.Controllers
 
         public IActionResult Index()
         {
+            ArticleIndexVM articleIndexVM = new ArticleIndexVM();
+
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //if (userID != null)
+            //{
+            //    var articleList = articleRepository.GetFavoriteCategoryOfArticle(userID);
+            //    articleIndexVM.Articles = articleList;
+            //    return RedirectToRoute(new { controller = "ArticleByCategories", action="Index"});
+            //}
             //if (userID!=null)
             //{
             //    return View("Index", "UsersArticleController");
             //}
             var articles = articleRepository.GetMostViewedArticleByViewCount();
-            ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Articles = articles;
 
             return View(articleIndexVM);

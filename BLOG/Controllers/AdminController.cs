@@ -11,7 +11,7 @@ namespace BLOG.Controllers
         private readonly IArticleRepository articleRepository;
         private readonly ICategoryRepository categoryRepository;
 
-        public AdminController(IAppUserRepository appUserRepository,IArticleRepository articleRepository,ICategoryRepository categoryRepository)
+        public AdminController(IAppUserRepository appUserRepository, IArticleRepository articleRepository, ICategoryRepository categoryRepository)
         {
             this.appUserRepository = appUserRepository;
             this.articleRepository = articleRepository;
@@ -32,7 +32,7 @@ namespace BLOG.Controllers
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Articles = articleRepository.GetAll();
-            
+
             return View(articleIndexVM);
         }
         public IActionResult DeleteArticle(int Id)
@@ -42,12 +42,12 @@ namespace BLOG.Controllers
             {
                 bool returner = articleRepository.Delete(article);
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult DeleteUser(string Id)
         {
             var user = appUserRepository.GetById(Id);
-            if (user!=null)
+            if (user != null)
             {
                 bool returner = appUserRepository.Delete(user);
             }
@@ -55,7 +55,17 @@ namespace BLOG.Controllers
         }
         public IActionResult AddCategory()
         {
-            return View();
+            var category = categoryRepository.GetAll();   
+            if (category!=null)
+            {
+                CategoryIndexVM categoryIndexVM = new CategoryIndexVM();
+                categoryIndexVM.Categories = categoryRepository.GetAll();
+                return View(categoryIndexVM); 
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public IActionResult AddCategory(CategoryIndexVM categoryIndexVM)

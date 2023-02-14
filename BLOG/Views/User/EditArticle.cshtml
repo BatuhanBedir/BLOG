@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using BLOG.Entities.Concrete
+@model ArticleUserVM
 @{
+    ViewData["Title"] = "Add Article";
+    var articleCategory = ViewBag.ArticleCategory as Article;
 }
+
+<h3>Add Article</h3>
+<hr />
+
+
+<div class="col-md-4" asp-validation-summary="All">
+    <form asp-controller="User" asp-action="EditArticle">
+        <input asp-for="UserId" hidden />
+        <div class="form-group ">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="Content" class="control-label"></label>
+            <textarea asp-for="Content" class="p-2 form-control" rows="10" style="height:100%" required></textarea>
+        </div><br />
+
+        @foreach (var item in Model.Categories)
+        {
+            <tr>
+                <td>
+                    <div class="form-check ">
+                        <input class="form-check-input" name="ids" type="checkbox" @(articleCategory.Categories.Where(a=>a.Id==item.Id).Any()?"checked":"") value="@item.Id" id="@item.Id" />
+                        @Html.DisplayFor(modelItem=>item.Name)
+                    </div>
+                </td>
+            </tr>
+        }
+        <input value="Update" type="submit" class="btn btn-outline-danger">
+
+
+
+
+
+    </form>
+</div>

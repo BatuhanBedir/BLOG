@@ -17,5 +17,6 @@ namespace BLOG.Models
         public decimal AvgReadingTime { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public ICollection<Category> Categories { get; set; }
+        public string UserId { get; set; }
     }
 }

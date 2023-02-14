@@ -1,6 +1,7 @@
 ﻿using BLOG.Areas.Identity.Data;
 using BLOG.Entities.Abstract;
 using BLOG.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace BLOG.Repository.Concrete
@@ -60,9 +61,8 @@ namespace BLOG.Repository.Concrete
                 db.Set<T>().Update(entity);
                 return db.SaveChanges() > 0;
             }
-            catch
+            catch 
             {
-
                 return false;
             }
         }

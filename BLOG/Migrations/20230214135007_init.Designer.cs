@@ -4,6 +4,7 @@ using BLOG.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BLOG.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214135007_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,9 +125,6 @@ namespace BLOG.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("a")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -141,9 +140,9 @@ namespace BLOG.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59ec33e9-b52a-4180-9c73-cd3ca01f3f1f",
+                            Id = "2bbf73b8-0fb2-492d-b85d-277ae2ae174d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f6fb9a3-6603-4160-848b-ef86ac4c65cf",
+                            ConcurrencyStamp = "dab1dbf0-7b19-4c77-af6b-496287aa2f44",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -151,18 +150,18 @@ namespace BLOG.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFhUQbUga+cF/tvdlA7kmPjUIhgKIVR7DjKUbBOd6+E/SKbU/sqBf6w+lGXZRRJuBQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG048cW5pGnfVLudX48/H3qW64FgBk6OOmre3Qf6MtYWAIVNjfhtdxHOUSnu+PAKSQ==",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2023, 2, 14, 21, 55, 26, 458, DateTimeKind.Local).AddTicks(1206),
-                            SecurityStamp = "5525afb5-b8da-439c-b579-8c757c1ede6a",
+                            RegistrationDate = new DateTime(2023, 2, 14, 16, 50, 7, 238, DateTimeKind.Local).AddTicks(4834),
+                            SecurityStamp = "c085dc14-2dfe-4a98-a88c-3c7798c282bf",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
                         new
                         {
-                            Id = "279de4eb-05c4-4e24-8a2a-4c7f6f80c533",
+                            Id = "3b639c0b-af35-4512-8e90-67fcf6760dc1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e378a30-59f1-4e5b-9d0d-30376cbfbb61",
+                            ConcurrencyStamp = "fb061b96-deca-4b80-8e05-c06e52797d01",
                             Email = "standard@standard.com",
                             EmailConfirmed = true,
                             FirstName = "Standard",
@@ -170,10 +169,10 @@ namespace BLOG.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STANDARD@STANDARD.COM",
                             NormalizedUserName = "STANDARD@STANDARD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM8aySVbI6U/NNJNryR5H40oCdNkpj2VTRGh8ESDXNEQp/DtzeuNKqg4q2TEM+ZB6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENBidvMGhDnczAY0sN8d0z4GsYQSSL9pE91nMxRr3mXi72naZEymIj/DPaqNS9cC6w==",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2023, 2, 14, 21, 55, 26, 459, DateTimeKind.Local).AddTicks(7151),
-                            SecurityStamp = "42185709-5d91-4f74-8fb8-442fed839db9",
+                            RegistrationDate = new DateTime(2023, 2, 14, 16, 50, 7, 239, DateTimeKind.Local).AddTicks(4798),
+                            SecurityStamp = "85e028c1-7813-4901-b4c6-f0fe2e0f3288",
                             TwoFactorEnabled = false,
                             UserName = "standard@standard.com"
                         });
@@ -261,15 +260,15 @@ namespace BLOG.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8e1d6f5d-d990-4f62-854b-98385f463d2f",
-                            ConcurrencyStamp = "141d3b16-9fd4-44ad-b7b8-1b7a31568bf2",
+                            Id = "fcd23dd2-0d33-4a5f-a77b-eb8a9026fe1a",
+                            ConcurrencyStamp = "6d46135b-bfdc-4f71-a9d2-b91ee12549f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9704302d-29c6-4fb3-8944-4d3e3dc79143",
-                            ConcurrencyStamp = "e678034a-caed-4052-b5b3-4a43e4d2f6e2",
+                            Id = "4200ce6c-f67a-43ee-84a2-19728c642efb",
+                            ConcurrencyStamp = "f98498f9-2b98-4db6-ad76-9825a013ea9d",
                             Name = "Standard",
                             NormalizedName = "STANDARD"
                         });
@@ -330,7 +329,7 @@ namespace BLOG.Migrations
                             Id = 1,
                             ClaimType = "IsAdmin",
                             ClaimValue = "true",
-                            UserId = "59ec33e9-b52a-4180-9c73-cd3ca01f3f1f"
+                            UserId = "2bbf73b8-0fb2-492d-b85d-277ae2ae174d"
                         });
                 });
 
@@ -375,13 +374,13 @@ namespace BLOG.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "59ec33e9-b52a-4180-9c73-cd3ca01f3f1f",
-                            RoleId = "8e1d6f5d-d990-4f62-854b-98385f463d2f"
+                            UserId = "2bbf73b8-0fb2-492d-b85d-277ae2ae174d",
+                            RoleId = "fcd23dd2-0d33-4a5f-a77b-eb8a9026fe1a"
                         },
                         new
                         {
-                            UserId = "279de4eb-05c4-4e24-8a2a-4c7f6f80c533",
-                            RoleId = "9704302d-29c6-4fb3-8944-4d3e3dc79143"
+                            UserId = "3b639c0b-af35-4512-8e90-67fcf6760dc1",
+                            RoleId = "4200ce6c-f67a-43ee-84a2-19728c642efb"
                         });
                 });
 

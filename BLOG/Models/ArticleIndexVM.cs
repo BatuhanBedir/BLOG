@@ -24,5 +24,6 @@ namespace BLOG.Models
         public decimal AvgReadingTime { get; set; }
 
         public string Image { get; set; }
+        
     }
 }

@@ -7,6 +7,7 @@ namespace BLOG.Models
 {
     public class ArticleUserVM
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Please enter title")]
         [MinLength(5,ErrorMessage = "Title can not be shorter than 5 chars")]
         public string Title { get; set; }
@@ -16,7 +17,9 @@ namespace BLOG.Models
         public string Content { get; set; }
         public string UserId { get; set; }
 
+        public decimal AvgReadingTime { get; set; }
         public int CategoryId { get; set; }
+        public DateTime CreatedDate { get; set; }
         public IEnumerable<Article> Articles { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         

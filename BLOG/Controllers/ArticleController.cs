@@ -24,9 +24,9 @@ namespace BLOG.Controllers
             var article = articleRepository.GetById(Id);
             article.ViewCount++;
             articleRepository.Update(article);
-            var users = appUserRepository.GetById(article.AppUserId);
+            var user = appUserRepository.GetById(article.AppUserId);
             
-            string writer = users.FirstName+ " " + users.LastName;
+            string writer = user.FirstName+ " " + user.LastName;
 
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Title = article.Title;
@@ -36,7 +36,8 @@ namespace BLOG.Controllers
             articleIndexVM.CreatedTime = article.CreatedDate;
             articleIndexVM.AvgReadingTime = article.AvgReadingTime;
             articleIndexVM.UserId = article.AppUserId;
-            articleIndexVM.Image = users.Image;
+            articleIndexVM.Image = user.Image;
+            articleIndexVM.UserId = user.Id;
 
             return View(articleIndexVM);
         }

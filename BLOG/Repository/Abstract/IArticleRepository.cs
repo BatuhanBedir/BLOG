@@ -9,5 +9,7 @@ namespace BLOG.Repository.Abstract
         IEnumerable<Article> GetMostViewedArticleByViewCount();
         IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId);
         IEnumerable<Article> GetArticlesBySelectedUserId(string id);
+        Article GetByIdIncludeCategory(int id);
+        dynamic GetArticlesBySelectedUserId(int id);
     }
 }
