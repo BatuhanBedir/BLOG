@@ -18,5 +18,7 @@ namespace BLOG.Models
         public string Description { get; set; }
 
         public HashSet<Article> Articles { get; set; }
+        public int ArticleId { get; set; }
+
     }
 }
