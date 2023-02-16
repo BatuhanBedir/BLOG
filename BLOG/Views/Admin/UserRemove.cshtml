@@ -17,13 +17,17 @@
             var mid = "deleteModal" + item.Id;
 
             <tr>
-                <td>@Html.DisplayFor(modelItem=>item.UserName)</td>
-                @Html.HiddenFor(modelItem=>item.Id)
-                <td>
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="@tm">
-                        Delete User
-                    </button>
-                </td>
+                @if (item.UserName != "admin@admin.com")
+                {
+
+                    <td>@Html.DisplayFor(modelItem=>item.UserName)</td>
+                    @Html.HiddenFor(modelItem=>item.Id)
+                    <td>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="@tm">
+                            Delete User
+                        </button>
+                    </td>
+                }
             </tr>
             <!-- Modal Start-->
             <div class="modal fade" id="@mid" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
