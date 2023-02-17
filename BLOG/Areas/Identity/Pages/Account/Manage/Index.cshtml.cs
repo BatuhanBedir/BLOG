@@ -37,6 +37,7 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -73,25 +74,29 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
             public string FirstName { get; set; }
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
+            public string? Description { get; set; }
 
         }
 
         private async Task LoadAsync(AppUser user)
         {
             var firstName = user.FirstName;
-            var lastName = user.LastName;   
+            var lastName = user.LastName;
+            var description = user.Description;
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             FirstName = firstName;
             LastName = lastName;
             Username = userName;
+            Description = description;
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 Username=userName,
                 FirstName=firstName,
                 LastName=lastName,
+                Description=description,
             };
         }
 
@@ -123,6 +128,7 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
             user.UserName = Input.Username;
             user.FirstName = Input.FirstName;
             user.LastName = Input.LastName;
+            user.Description = Input.Description;
             appUserRepository.Update(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
