@@ -125,6 +125,7 @@ namespace BLOG.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
+
             user.UserName = Input.Username;
             user.FirstName = Input.FirstName;
             user.LastName = Input.LastName;

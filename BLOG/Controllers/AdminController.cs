@@ -75,5 +75,15 @@ namespace BLOG.Controllers
             categoryRepository.Add(category);
             return RedirectToAction(nameof(AddCategory));
         }
+
+        public IActionResult RemoveCategory(int id)
+        {
+            var category = categoryRepository.GetById(id);
+            if (category !=null)
+            {
+                bool returner = categoryRepository.Delete(category);
+            }
+            return RedirectToAction("AddCategory", "Admin");
+        }
     }
 }
