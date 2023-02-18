@@ -71,5 +71,10 @@ namespace BLOG.Repository.Concrete
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
