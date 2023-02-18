@@ -7,5 +7,8 @@ namespace BLOG.Repository.Abstract
     {
         public AppUser GetById(string id);
         public AppUser GetByIdIncludeCategory(string Id);
+
+        //sqwdq
+        public AppUser IncludeCategory(string appUserId);
     }
 }

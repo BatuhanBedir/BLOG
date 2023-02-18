@@ -25,26 +25,32 @@ namespace BLOG.Repository.Concrete
             return db.Set<Article>().FirstOrDefault(a => a.Id == id);
         }
 
-        public IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId)
+        public IEnumerable<Article> CategoryInclude(int id)
         {
-            var user = db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
-            var categories = user.Category;
-            List<Article> articleList = new List<Article>();
-
-            foreach (var item in categories)
-            {
-                var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id));
-
-                foreach (var article in articles)
-                {
-                    if (!articleList.Any(a => a.Id == article.Id))
-                    {
-                        articleList.Add(article);
-                    }
-                }
-            }
-            return articleList;
+            return db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == id));
         }
+        
+
+        //public IEnumerable<Article> GetFavoriteCategoryOfArticle(string appUserId)
+        //{
+        //    var user = db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
+        //    var categories = user.Category;
+        //    List<Article> articleList = new List<Article>();
+
+        //    foreach (var item in categories)
+        //    {
+        //        var articles = db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == item.Id));
+
+        //        foreach (var article in articles)
+        //        {
+        //            if (!articleList.Any(a => a.Id == article.Id))
+        //            {
+        //                articleList.Add(article);
+        //            }
+        //        }
+        //    }
+        //    return articleList;
+        //}
 
         public IEnumerable<Article> GetMostViewedArticleByViewCount()
         {
