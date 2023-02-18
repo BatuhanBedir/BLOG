@@ -96,10 +96,14 @@ namespace BLOG.Controllers
 
             //article.Categories = categories;
 
+            var wordCount = articleUserVM.Content.Split().Length;
+            var readingTime = (int)Math.Ceiling((double)wordCount / 225);
+            
             Article article = new Article();
             article.Title = articleUserVM.Title;
             article.Content = articleUserVM.Content;
-            article.AvgReadingTime = article.Content.Length / 200;
+            //article.AvgReadingTime = article.Content.Length / 200;
+            article.AvgReadingTime = readingTime;
             article.AppUserId = articleUserVM.UserId;
 
             HashSet<Category> categories = new HashSet<Category>();
