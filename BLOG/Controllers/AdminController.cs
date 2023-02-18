@@ -51,7 +51,7 @@ namespace BLOG.Controllers
             {
                 bool returner = appUserRepository.Delete(user);
             }
-            return RedirectToAction("Action", "Home");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult AddCategory()
         {

@@ -44,9 +44,6 @@ namespace BLOG.Controllers
                     }
                 }
             }
-
-
-
             //var articles = _articleRepository.GetFavoriteCategoryOfArticle(userID);
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             articleIndexVM.Articles = articleList;
