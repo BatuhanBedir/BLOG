@@ -46,7 +46,7 @@ namespace BLOG.Controllers
 
             return View(articleUserVM);
         }
-        public IActionResult AddArticle(int id)
+        public IActionResult AddArticle()
         {
 
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -58,8 +58,9 @@ namespace BLOG.Controllers
             }
             ArticleUserVM articleUserVM = new ArticleUserVM();
 
-            ViewBag.ArticleCategory = articleRepository.GetByIdIncludeCategory(id);
-            var article = articleRepository.GetById(id);
+            //ViewBag.ArticleCategory = articleRepository.GetByIdIncludeCategory(id);
+            
+            //var article = articleRepository.GetById(id);
             //articleUserVM.Title = article.Title;
             //articleUserVM.Content = article.Content;
             //articleUserVM.CreatedDate = article.CreatedDate;
