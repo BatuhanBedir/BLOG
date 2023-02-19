@@ -9,6 +9,6 @@ namespace BLOG.Repository.Abstract
         public AppUser GetByIdIncludeCategory(string Id);
 
         
-        public AppUser IncludeCategory(string appUserId);
+        //public AppUser IncludeCategory(string appUserId);
     }
 }

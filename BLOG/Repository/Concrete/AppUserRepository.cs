@@ -23,10 +23,10 @@ namespace BLOG.Repository.Concrete
            return db.Set<AppUser>().Include(a => a.Category).FirstOrDefault(a => a.Id == Id);
         }
 
-        //sadwqd
-        public AppUser IncludeCategory(string appUserId)
-        {
-            return db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
-        }
+        //    //sadwqd
+        //    public AppUser IncludeCategory(string appUserId)
+        //    {
+        //        return db.Set<AppUser>().Include(q => q.Category).FirstOrDefault(a => a.Id == appUserId);
+        //    }
     }
 }

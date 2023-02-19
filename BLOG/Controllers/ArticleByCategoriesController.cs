@@ -29,7 +29,7 @@ namespace BLOG.Controllers
                 return LocalRedirect("~/Identity/Account/Register");
             }
 
-            var user = appUserRepository.IncludeCategory(userID);
+            var user = appUserRepository.GetByIdIncludeCategory(userID);
             var categories = user.Category;
             List<Article> articleList = new List<Article>();
 

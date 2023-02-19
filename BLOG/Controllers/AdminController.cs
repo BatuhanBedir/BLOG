@@ -24,6 +24,7 @@ namespace BLOG.Controllers
         public IActionResult UserRemove()
         {
             AppUserIndexVM appUserIndexVM = new AppUserIndexVM();
+            //all users list
             appUserIndexVM.AppUsers = appUserRepository.GetAll();
 
             return View(appUserIndexVM);
@@ -31,6 +32,7 @@ namespace BLOG.Controllers
         public IActionResult ArticleRemove()
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
+            //all articles list
             articleIndexVM.Articles = articleRepository.GetAll();
 
             return View(articleIndexVM);
@@ -59,6 +61,7 @@ namespace BLOG.Controllers
             if (category!=null)
             {
                 CategoryIndexVM categoryIndexVM = new CategoryIndexVM();
+                //all categories list
                 categoryIndexVM.Categories = categoryRepository.GetAll();
                 return View(categoryIndexVM); 
             }
