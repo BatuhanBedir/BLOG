@@ -31,7 +31,7 @@ namespace BLOG.Controllers
 
             var user = appUserRepository.GetByIdIncludeCategory(userID);
             var categories = user.Category;
-            List<Article> articleList = new List<Article>();
+            List<Article> articleList = new List<Article>();//HashSet
 
             foreach (var item in categories)
             {

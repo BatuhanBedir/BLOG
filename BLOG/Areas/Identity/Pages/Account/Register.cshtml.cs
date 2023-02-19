@@ -134,12 +134,9 @@ namespace BLOG.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                //VM 'den gelen verileri usera atıp dbye kaydediyoruz
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.Description = Input.Description;
-
-                
 
                 if (Input.ImageFile != null)
                 {
@@ -155,6 +152,20 @@ namespace BLOG.Areas.Identity.Pages.Account
                    // string file = Path.GetFileName(Request.Form.Files[0].FileName);
                     user.Image ="/images/" + uniqueFileName;
                 }
+
+                //string standardRoleId = Guid.NewGuid().ToString();
+
+                //IdentityRole standardRole = new IdentityRole { Id = standardRoleId, Name = user.UserName, NormalizedName = user.UserName.ToUpper() };
+
+                //IdentityUserRole<string> standardUserRole = new IdentityUserRole<string> { RoleId = standardRoleId, UserId = user.Id };
+
+                //new IdentityUserClaim<string>
+                //{
+                //    UserId = user.Id,
+                //    Id = 1,
+                //    ClaimType = "IsStandard",
+                //    ClaimValue = "true",
+                //};
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -176,19 +187,7 @@ namespace BLOG.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    //string standardRoleId = Guid.NewGuid().ToString();
-
-                    //IdentityRole standardRole = new IdentityRole { Id = standardRoleId, Name = user.UserName, NormalizedName = user.UserName.ToUpper() };
-
-                    //IdentityUserRole<string> standardUserRole = new IdentityUserRole<string> { RoleId = standardRoleId, UserId = user.Id };
-
-                    //new IdentityUserClaim<string>
-                    //{
-                    //    UserId = user.Id,
-                    //    Id = 1,
-                    //    ClaimType = "IsStandard",
-                    //    ClaimValue = "true",
-                    //};
+                    
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });

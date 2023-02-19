@@ -32,7 +32,7 @@ namespace BLOG.Controllers
         {
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = appUserRepository.GetById(userID);
-            var article = articleRepository.GetArticlesBySelectedUserId(userID);    //gönderilen idye göre makaleleri geliyor.
+            var article = articleRepository.GetArticlesBySelectedUserId(userID);    //gönderilen idye göre kullanıcı makaleleri geliyor.
             // List<Article> articles = new List<Article>();
             ArticleUserVM articleUserVM = new ArticleUserVM();
             articleUserVM.Articles = article;
@@ -48,36 +48,41 @@ namespace BLOG.Controllers
         }
         public IActionResult AddArticle()
         {
+            #region ClaimTypes.NameIdentifier
+            /*
+             User nesnesi, mevcut HTTP isteği için kimlik doğrulama yapılmış kullanıcı bilgilerini içerir. Bu metot, bu kullanıcının tanımlayıcısının (identifier) değerini döndürür.ClaimTypes.NameIdentifier, bir kullanıcının benzersiz bir şekilde tanımlanmasına yardımcı olan bir kimlik doğrulama bildirimi türüdür. Bu bildirim türü, bir kullanıcının sistemdeki diğer kayıtlarında benzersiz bir kimlik doğrulama anahtarı olarak kullanılabilir. Örneğin, bir kullanıcının diğer veri kaynaklarıyla ilişkilendirilebilmesi için bu kimlik doğrulama anahtarı, bir veritabanındaki kullanıcı profili veya diğer dış sistemlerdeki kullanıcı kayıtları gibi diğer kaynaklarda depolanabilir.Dolayısıyla, User.FindFirstValue(ClaimTypes.NameIdentifier) metodu, mevcut kimlik doğrulama yapılmış kullanıcının benzersiz tanımlayıcısının değerini almak için kullanılabilir.
+             */
+            #endregion
 
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             AppUser user = appUserRepository.GetById(userID);
-            var allCategory = categoryRepository.GetAll();
+             
             if (userID == null)
             {
                 return LocalRedirect("~/Identity/Account/Register");
             }
             ArticleUserVM articleUserVM = new ArticleUserVM();
 
+            #region MyRegion
+            //var allCategory = categoryRepository.GetAll(); 
             //ViewBag.ArticleCategory = articleRepository.GetByIdIncludeCategory(id);
-            
             //var article = articleRepository.GetById(id);
             //articleUserVM.Title = article.Title;
             //articleUserVM.Content = article.Content;
             //articleUserVM.CreatedDate = article.CreatedDate;
             //articleUserVM.Id = article.Id;
-            articleUserVM.Categories = allCategory;
+            //articleUserVM.Categories = allCategory; 
+            #endregion
 
-
-            var category = categoryRepository.GetAll();
+            var categories = categoryRepository.GetAll();//bütün kategoriler
             articleUserVM.UserId = userID;
-            articleUserVM.Categories = category;
-
+            articleUserVM.Categories = categories;
 
             return View(articleUserVM);
         }
 
         [HttpPost]
-        public IActionResult AddArticle(ArticleUserVM articleUserVM, int[] ids)
+        public IActionResult AddArticle(ArticleUserVM articleUserVM, int[] ids)//Vm ve checkboxlarda işaretlenen kategoriler geliyor.
         {
             #region MyRegion
             //Article article = new Article();
@@ -96,10 +101,11 @@ namespace BLOG.Controllers
             //article.Categories = categories; 
             #endregion
 
-            var wordCount = articleUserVM.Content.Split().Length;
-            var readingTime = (int)Math.Ceiling((double)wordCount / 225);
+            var wordCount = articleUserVM.Content.Split().Length;   //Natural Language Proccessing --> Stanford.NLP.NET, SharpNLP, NLTKSharp, OpenNLP??
+            var readingTime = (int)Math.Ceiling((double)wordCount / 225); 
+            
 
-            Article article = new Article();
+            Article article = new Article();    
             article.Title = articleUserVM.Title;
             article.Content = articleUserVM.Content;
             //article.AvgReadingTime = article.Content.Length / 200;
@@ -126,7 +132,7 @@ namespace BLOG.Controllers
             {
                 return LocalRedirect("~/Identity/Account/Register");
             }
-            ViewBag.CategoryUser = appUserRepository.GetByIdIncludeCategory(userID);
+            ViewBag.CategoryUser = appUserRepository.GetByIdIncludeCategory(userID); //Category de dahil edilmiş AppUser geliyor.
             UserCategoryVM userCategoryVM = new UserCategoryVM()
             {
                 Categories = categories,
@@ -151,13 +157,13 @@ namespace BLOG.Controllers
             return RedirectToAction("SelectCategories");
         }
 
-        public IActionResult EditUser()
-        {
-            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = appUserRepository.GetById(userID);
+        //public IActionResult EditUser()
+        //{
+        //    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var user = appUserRepository.GetById(userID);
 
-            return View();
-        }
+        //    return View();
+        //}
         public IActionResult EditArticle(int Id)
         {
             var allCategory = categoryRepository.GetAll();
@@ -224,7 +230,7 @@ namespace BLOG.Controllers
         public IActionResult UserDetail(string id)
         {
             var user = appUserRepository.GetById(id);
-            var articles = articleRepository.GetArticlesBySelectedUserId(id);
+            //var articles = articleRepository.GetArticlesBySelectedUserId(id);
             UserDetailVM userDetailVM = new UserDetailVM();
             userDetailVM.FirstName = user.FirstName;
             userDetailVM.LastName = user.LastName;
