@@ -25,6 +25,11 @@ namespace BLOG.Repository.Concrete
             return db.Set<Article>().FirstOrDefault(a => a.Id == id);
         }
 
+        /// <summary>
+        /// her bir Article nesnesinin Categories özelliğinde (bilgileri) aranan kategori id olan herhangi bir kategori varsa, o Article nesnesini seçer.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Category özelliği dahil edilmiş Article </returns>
         public IEnumerable<Article> CategoryInclude(int id)
         {
             return db.Articles.Include(q => q.Categories).Where(a => a.Categories.Any(c => c.Id == id));
@@ -52,11 +57,20 @@ namespace BLOG.Repository.Concrete
         //    return articleList;
         //}
 
+        /// <summary>
+        /// Okunma sayısı çoktan aza doğru makaleleri getirir
+        /// </summary>
+        /// <returns>IEnumerable<Article></returns>
         public IEnumerable<Article> GetMostViewedArticleByViewCount()
         {
             return db.Articles.OrderByDescending(a => a.ViewCount).ToList();
         }
 
+        /// <summary>
+        /// gönderilmiş olan user id ye göre articleları gelecek
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IEnumerable<Article> GetArticlesBySelectedUserId(string id)
         {
             return db.Articles.Where(q => q.AppUserId == id).ToList();

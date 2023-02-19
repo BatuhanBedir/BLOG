@@ -19,7 +19,10 @@ namespace BLOG.Controllers
             this.articleRepository = articleRepository;
             this.categoryRepository = categoryRepository;
         }
-
+        //public IActionResult Profile(string userName)
+        //{
+        //    return View();
+        //}
         public IActionResult Index()
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();

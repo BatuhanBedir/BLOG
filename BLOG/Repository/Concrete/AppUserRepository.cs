@@ -18,6 +18,11 @@ namespace BLOG.Repository.Concrete
             return db.Set<AppUser>().FirstOrDefault(a => a.Id == id);
         }
 
+        /// <summary>
+        /// AppUser nesnesinin Category özelliğine(bilgisine) erişmek için Include yöntemini kullanır
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Category özelliği de dahil edilmiş AppUser nesnesini döndürür.</returns>
         public AppUser GetByIdIncludeCategory(string Id)
         {
            return db.Set<AppUser>().Include(a => a.Category).FirstOrDefault(a => a.Id == Id);

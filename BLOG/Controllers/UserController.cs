@@ -13,14 +13,11 @@ namespace BLOG.Controllers
     public class UserController : Controller
     {
         private readonly IArticleRepository articleRepository;
-        private readonly UserManager<AppUser> userManager;
         private readonly IAppUserRepository appUserRepository;
-
         private readonly ICategoryRepository categoryRepository;
-        public UserController(IArticleRepository articleRepository, UserManager<AppUser> userManager, IAppUserRepository appUserRepository, ICategoryRepository categoryRepository)
+        public UserController(IArticleRepository articleRepository, IAppUserRepository appUserRepository, ICategoryRepository categoryRepository)
         {
             this.articleRepository = articleRepository;
-            this.userManager = userManager;
             this.appUserRepository = appUserRepository;
 
             this.categoryRepository = categoryRepository;
@@ -35,7 +32,7 @@ namespace BLOG.Controllers
         {
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = appUserRepository.GetById(userID);
-            var article = articleRepository.GetArticlesBySelectedUserId(userID);
+            var article = articleRepository.GetArticlesBySelectedUserId(userID);    //gönderilen idye göre makaleleri geliyor.
             // List<Article> articles = new List<Article>();
             ArticleUserVM articleUserVM = new ArticleUserVM();
             articleUserVM.Articles = article;
@@ -81,6 +78,7 @@ namespace BLOG.Controllers
         [HttpPost]
         public IActionResult AddArticle(ArticleUserVM articleUserVM, int[] ids)
         {
+            #region MyRegion
             //Article article = new Article();
             //article.Title = articleUserVM.Title;
             //article.Content = articleUserVM.Content;
@@ -94,11 +92,12 @@ namespace BLOG.Controllers
             //    categories.Add(category);
             //}
 
-            //article.Categories = categories;
+            //article.Categories = categories; 
+            #endregion
 
             var wordCount = articleUserVM.Content.Split().Length;
             var readingTime = (int)Math.Ceiling((double)wordCount / 225);
-            
+
             Article article = new Article();
             article.Title = articleUserVM.Title;
             article.Content = articleUserVM.Content;
@@ -194,6 +193,7 @@ namespace BLOG.Controllers
 
             article.Categories = categories;
             articleRepository.Update(article);
+            #region MyRegion
             //Article article = new Article();
             //article.Title = editArticleVM.Title;
             //article.Content = editArticleVM.Content;
@@ -207,13 +207,14 @@ namespace BLOG.Controllers
             //}
             //article.Categories = categories;
             //article.AppUserId = editArticleVM.UserId;
-            //var returner = articleRepository.Update(article);
+            //var returner = articleRepository.Update(article); 
+            #endregion
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Delete(int id)
         {
             var article = articleRepository.GetById(id);
-            if (article!=null)
+            if (article != null)
             {
                 bool returner = articleRepository.Delete(article);
             }
