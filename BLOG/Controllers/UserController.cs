@@ -33,15 +33,17 @@ namespace BLOG.Controllers
             var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = appUserRepository.GetById(userID);
             var article = articleRepository.GetArticlesBySelectedUserId(userID);    //gönderilen idye göre kullanıcı makaleleri geliyor.
-            // List<Article> articles = new List<Article>();
             ArticleUserVM articleUserVM = new ArticleUserVM();
             articleUserVM.Articles = article;
+            #region MyRegion
+            // List<Article> articles = new List<Article>();
             //foreach (var item in article)
             //{
             //    articleUserVM.Title = item.Title;
             //    articleUserVM.Content = item.Content;
             //    articleUserVM.CreatedDate = item.CreatedDate;
-            //}
+            //} 
+            #endregion
 
 
             return View(articleUserVM);
@@ -157,13 +159,16 @@ namespace BLOG.Controllers
             return RedirectToAction("SelectCategories");
         }
 
+        #region MyRegion
         //public IActionResult EditUser()
         //{
         //    var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
         //    var user = appUserRepository.GetById(userID);
 
         //    return View();
-        //}
+        //} 
+        #endregion
+
         public IActionResult EditArticle(int Id)
         {
             var allCategory = categoryRepository.GetAll();
@@ -230,7 +235,7 @@ namespace BLOG.Controllers
         public IActionResult UserDetail(string id)
         {
             var user = appUserRepository.GetById(id);
-            //var articles = articleRepository.GetArticlesBySelectedUserId(id);
+            var articles = articleRepository.GetArticlesBySelectedUserId(id);
             UserDetailVM userDetailVM = new UserDetailVM();
             userDetailVM.FirstName = user.FirstName;
             userDetailVM.LastName = user.LastName;
