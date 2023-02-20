@@ -10,7 +10,7 @@ namespace BLOG.Models
     {
         [Required(ErrorMessage = "Please enter CategoryName")]
         [Remote("IsCategoryNameAvailable", "Category", HttpMethod = "POST",ErrorMessage ="Already exists.")]
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; }//ModelState
         public IEnumerable<Category> Categories { get; set; }
     }
 }

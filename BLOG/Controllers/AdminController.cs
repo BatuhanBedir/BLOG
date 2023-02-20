@@ -33,7 +33,7 @@ namespace BLOG.Controllers
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
             //all articles list
-            articleIndexVM.Articles = articleRepository.GetAll();
+            articleIndexVM.Articles = articleRepository.GetAll();//onay?
 
             return View(articleIndexVM);
         }

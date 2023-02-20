@@ -7,6 +7,7 @@ using System.Security.Claims;
 
 namespace BLOG.Controllers
 {
+    //Routing-ModelIsValid??
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -46,7 +46,10 @@
         </div>
 
         <h2 class="text-center">@Model.Title</h2>
-        <p>@Model.Content</p>
+        @*<p>@Model.Content</p>*@
+        <tr>
+            <td>@Html.Raw(Model.Content)</td>
+        </tr>
     </div>
 </div>
 

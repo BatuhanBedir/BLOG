@@ -83,6 +83,8 @@ namespace BLOG.Controllers
             return View(articleUserVM);
         }
 
+        //Model-IsValid.
+
         [HttpPost]
         public IActionResult AddArticle(ArticleUserVM articleUserVM, int[] ids)//Vm ve checkboxlarda işaretlenen kategoriler geliyor.
         {
