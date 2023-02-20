@@ -128,6 +128,7 @@ namespace BLOG.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [Authorize] //role
         public IActionResult SelectCategories()
         {
             var categories = categoryRepository.GetAll();

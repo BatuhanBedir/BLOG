@@ -152,12 +152,15 @@ namespace BLOG.Areas.Identity.Pages.Account
                    // string file = Path.GetFileName(Request.Form.Files[0].FileName);
                     user.Image ="/images/" + uniqueFileName;
                 }
+                //olusturdugumuz standard rolü çek.
+
 
                 //string standardRoleId = Guid.NewGuid().ToString();
 
                 //IdentityRole standardRole = new IdentityRole { Id = standardRoleId, Name = user.UserName, NormalizedName = user.UserName.ToUpper() };
 
                 //IdentityUserRole<string> standardUserRole = new IdentityUserRole<string> { RoleId = standardRoleId, UserId = user.Id };
+
 
                 //new IdentityUserClaim<string>
                 //{

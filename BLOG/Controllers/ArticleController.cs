@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BLOG.Controllers
 {
+    //article crudları buraya yaz.
     public class ArticleController : Controller
     {
         private readonly IArticleRepository articleRepository;

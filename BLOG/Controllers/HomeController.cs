@@ -27,7 +27,7 @@ namespace BLOG.Controllers
         public IActionResult Index()
         {
             ArticleIndexVM articleIndexVM = new ArticleIndexVM();
-            var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userID = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             //if (userID != null)
             //{

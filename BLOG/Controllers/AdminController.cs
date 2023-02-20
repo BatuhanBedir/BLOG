@@ -73,9 +73,14 @@ namespace BLOG.Controllers
         [HttpPost]
         public IActionResult AddCategory(CategoryIndexVM categoryIndexVM)
         {
+            if (!ModelState.IsValid)
+            {
+                categoryIndexVM.Categories = categoryRepository.GetAll();
+                return View(categoryIndexVM);
+            }
             Category category = new Category();
             category.Name = categoryIndexVM.CategoryName;
-            categoryRepository.Add(category);
+            //categoryRepository.Add(category);
             return RedirectToAction(nameof(AddCategory));
         }
 
